@@ -40,10 +40,13 @@ function Bubble(minRadius, maxRadius) {
     if (per > 25 && per < 50) return '66';
     return '26';
   }
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  function random(min, max) {
+    let result = 0;
+    while (!result) {
+      result = Math.floor(Math.random() * (max - min)) + min;
+    }
+    return result;
+  }
 }
 
 function generateBubbles(count, minRadius, maxRadius) {
