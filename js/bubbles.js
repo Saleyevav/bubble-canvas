@@ -1,8 +1,14 @@
 'use strict';
-let canvas = document.getElementById('canvas');
+const canvas = document.getElementById('canvas');
 canvas.height = 480;
 canvas.width = 640;
-let context = canvas.getContext('2d');
+const context = canvas.getContext('2d');
+let mouseX = undefined;
+let mouseY = undefined;
+canvas.onmousemove = (e) => {
+  mouseX = e.offsetX;
+  mouseY = e.offsetY;
+};
 
 function Bubble(minRadius, maxRadius) {
   const colorSet = ['', '#86C232', '#3CB371', '#222629'];
@@ -12,10 +18,11 @@ function Bubble(minRadius, maxRadius) {
   this.dx = random(-3, 3);
   this.dy = random(-3, 3);
   this.radius = random(minRadius, maxRadius);
-  this.color =
+  const color =
     colorSet[random(1, colorSet.length)] + getOpacity(this.radius, maxRadius);
+  this.color = color;
 
-  console.log(this.radius / (maxRadius / 100) + '|' + this.color);
+  //console.log(this.radius / (maxRadius / 100) + '|' + this.color);
   this.draw = function () {
     context.beginPath();
     context.fillStyle = this.color;
@@ -31,7 +38,20 @@ function Bubble(minRadius, maxRadius) {
     }
     this.x += this.dx;
     this.y += this.dy;
+    this.changeColor(50);
     this.draw();
+  };
+  this.changeColor = function (rad) {
+    if (
+      this.x > mouseX - rad &&
+      this.x < mouseX + rad &&
+      this.y > mouseY - rad &&
+      this.y < mouseY + rad
+    ) {
+      this.color = 'red';
+    } else {
+      this.color = color;
+    }
   };
   function getOpacity(radius, maxRadius) {
     let per = radius / (maxRadius / 100);
@@ -60,7 +80,7 @@ function generateBubbles(count, minRadius, maxRadius) {
   return arr;
 }
 
-const bubbles = generateBubbles(100, 1, 20);
+const bubbles = generateBubbles(500, 1, 10);
 
 requestAnimationFrame(function measure(time) {
   context.clearRect(0, 0, canvas.width, canvas.height);
