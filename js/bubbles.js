@@ -4,22 +4,25 @@ canvas.height = 480;
 canvas.width = 640;
 let context = canvas.getContext('2d');
 
-function Bubble(x, y, dx, dy, radius, color) {
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
-    this.radius = radius;
-    this.color = color;
+function Bubble(minRadius,maxRadius) {
+    const colorSet = [
+        '#86C232',
+        '#3CB371',
+        '#222629'
+    ]
+
+    this.x = random(maxRadius,canvas.width-maxRadius);
+    this.y = random(maxRadius,canvas.height-maxRadius);
+    this.dx = random(-3,3);
+    this.dy = random(-3,3);
+    this.radius = random(minRadius,maxRadius);
+    this.color = colorSet[random(0,colorSet.length)] + random(10,90);
     this.draw = function () {
         context.beginPath();
-        context.fillStyle = color;
+        context.fillStyle = this.color;
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         context.fill();
     }
-    // this.makeLife = function() {
-    //     this.
-    // }
     this.move = function () {
         if (this.x > (canvas.width - this.radius) || this.x < this.radius) {
             this.dx = this.dx * -1;
@@ -32,13 +35,11 @@ function Bubble(x, y, dx, dy, radius, color) {
         this.draw()
     }
 
+    
+
 }
 
-const colorSet = [
-    '#86C232',
-    '#3CB371',
-    '#222629'
-]
+
 
 function random(min,max){
     return Math.floor(Math.random() * (max - min)) + min
@@ -47,14 +48,7 @@ function random(min,max){
 function generateBubbles(count,minRadius, maxRadius) {
     const arr = [];
     for (let i = 0; i < count; i++) {
-        arr.push(new Bubble(
-            random(maxRadius,canvas.width-maxRadius),
-            random(maxRadius,canvas.height-maxRadius),
-            random(1,5),
-            random(1,5),
-            random(minRadius,maxRadius),
-            colorSet[random(0,colorSet.length)] + random(10,90)
-        ))
+        arr.push(new Bubble(minRadius,maxRadius))
     }
     return arr;
 }
