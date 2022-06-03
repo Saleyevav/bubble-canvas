@@ -54,10 +54,13 @@ function generateBubbles(count, minRadius, maxRadius) {
   for (let i = 0; i < count; i++) {
     arr.push(new Bubble(minRadius, maxRadius));
   }
+  arr.sort(function (a, b) {
+    return a.radius - b.radius;
+  });
   return arr;
 }
 
-const bubbles = generateBubbles(100, 3, 20);
+const bubbles = generateBubbles(100, 1, 20);
 
 requestAnimationFrame(function measure(time) {
   context.clearRect(0, 0, canvas.width, canvas.height);
