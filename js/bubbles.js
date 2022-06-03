@@ -33,7 +33,12 @@ function Bubble(minRadius, maxRadius) {
     this.draw();
   };
   function getOpacity(radius, maxRadius) {
-    return Math.round(100 - radius / (maxRadius / 100));
+    let per = Math.round(radius / (maxRadius / 100));
+    // console.log(per);
+    if (per > 85) return 'E6';
+    if (per > 50 && per < 85) return 'BF';
+    if (per > 25 && per < 50) return '66';
+    return '26';
   }
 }
 
@@ -49,7 +54,7 @@ function generateBubbles(count, minRadius, maxRadius) {
   return arr;
 }
 
-const bubbles = generateBubbles(100, 3, 50);
+const bubbles = generateBubbles(100, 3, 20);
 
 requestAnimationFrame(function measure(time) {
   context.clearRect(0, 0, canvas.width, canvas.height);
