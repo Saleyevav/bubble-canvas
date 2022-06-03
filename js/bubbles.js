@@ -6,7 +6,7 @@ let context = canvas.getContext('2d');
 
 function Bubble(minRadius, maxRadius) {
   const colorSet = ['', '#86C232', '#3CB371', '#222629'];
-
+  //   const colorSet = ['', '#222629', '#222629', '#222629'];
   this.x = random(maxRadius, canvas.width - maxRadius);
   this.y = random(maxRadius, canvas.height - maxRadius);
   this.dx = random(-3, 3);
@@ -14,7 +14,8 @@ function Bubble(minRadius, maxRadius) {
   this.radius = random(minRadius, maxRadius);
   this.color =
     colorSet[random(1, colorSet.length)] + getOpacity(this.radius, maxRadius);
-  console.log(this.radius + '|' + this.color);
+
+  console.log(this.radius / (maxRadius / 100) + '|' + this.color);
   this.draw = function () {
     context.beginPath();
     context.fillStyle = this.color;
@@ -33,11 +34,10 @@ function Bubble(minRadius, maxRadius) {
     this.draw();
   };
   function getOpacity(radius, maxRadius) {
-    let per = Math.round(radius / (maxRadius / 100));
-    // console.log(per);
-    if (per > 85) return 'E6';
-    if (per > 50 && per < 85) return 'BF';
-    if (per > 25 && per < 50) return '66';
+    let per = radius / (maxRadius / 100);
+    if (per >= 85) return 'E6';
+    if (per >= 50 && per < 85) return 'BF';
+    if (per >= 25 && per < 50) return '66';
     return '26';
   }
   function random(min, max) {
