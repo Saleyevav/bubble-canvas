@@ -27,7 +27,6 @@ function Bubble(minRadius, maxRadius) {
     colorSet[random(1, colorSet.length)] + getOpacity(this.radius, maxRadius);
   this.color = color;
 
-  //console.log(this.radius / (maxRadius / 100) + '|' + this.color);
   this.draw = function () {
     context.beginPath();
     context.fillStyle = this.color;
