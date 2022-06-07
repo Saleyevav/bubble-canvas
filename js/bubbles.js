@@ -5,11 +5,16 @@ canvas.width = canvas.clientWidth;
 const context = canvas.getContext('2d');
 let mouseX = undefined;
 let mouseY = undefined;
+
 canvas.onmousemove = (e) => {
   mouseX = e.offsetX;
   mouseY = e.offsetY;
 };
 
+window.onresize = (e) => {
+  canvas.height = canvas.clientHeight;
+  canvas.width = canvas.clientWidth;
+};
 function Bubble(minRadius, maxRadius) {
   const colorSet = ['', '#86C232', '#3CB371', '#222629'];
   //   const colorSet = ['', '#222629', '#222629', '#222629'];
