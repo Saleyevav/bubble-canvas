@@ -1,7 +1,7 @@
 'use strict';
-const canvas = document.getElementById('canvas');
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+const canvas = document.getElementById('canvasBubbles');
+canvas.height = canvas.clientHeight;
+canvas.width = canvas.clientWidth;
 const context = canvas.getContext('2d');
 let mouseX = undefined;
 let mouseY = undefined;
