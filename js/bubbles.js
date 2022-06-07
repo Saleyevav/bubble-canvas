@@ -1,7 +1,7 @@
 'use strict';
 const canvas = document.getElementById('canvas');
-canvas.height = 480;
-canvas.width = 640;
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 const context = canvas.getContext('2d');
 let mouseX = undefined;
 let mouseY = undefined;
