@@ -23,6 +23,7 @@ function Bubble(minRadius, maxRadius) {
   this.dx = random(-3, 3);
   this.dy = random(-3, 3);
   this.radius = random(minRadius, maxRadius);
+  this.startRadius = this.radius;
   const color =
     colorSet[random(1, colorSet.length)] + getOpacity(this.radius, maxRadius);
   this.color = color;
@@ -42,7 +43,7 @@ function Bubble(minRadius, maxRadius) {
     }
     this.x += this.dx;
     this.y += this.dy;
-    this.changeColor(50);
+    this.resize(50);
     this.draw();
   };
   this.changeColor = function (rad) {
@@ -57,6 +58,23 @@ function Bubble(minRadius, maxRadius) {
       this.color = color;
     }
   };
+  this.resize = function (rad) {
+    if (
+      this.x > mouseX - rad &&
+      this.x < mouseX + rad &&
+      this.y > mouseY - rad &&
+      this.y < mouseY + rad
+    ) {
+      if (this.radius < 50) {
+        this.radius += 1;
+      }
+    } else {
+      this.radius > this.startRadius
+        ? (this.radius -= 1)
+        : (this.radius = this.startRadius);
+    }
+  };
+
   function getOpacity(radius, maxRadius) {
     let per = radius / (maxRadius / 100);
     if (per >= 85) return 'E6';
