@@ -16,7 +16,7 @@ window.onresize = (e) => {
   canvas.width = canvas.clientWidth;
 };
 function Bubble(minRadius, maxRadius) {
-  const colorSet = ['', '#86C232', '#3CB371', '#222629'];
+  const colorSet = ['', '#251D3A', '#2A2550', '#B20600'];
   //   const colorSet = ['', '#222629', '#222629', '#222629'];
   this.x = random(maxRadius, canvas.width - maxRadius);
   this.y = random(maxRadius, canvas.height - maxRadius);
@@ -24,10 +24,9 @@ function Bubble(minRadius, maxRadius) {
   this.dy = random(-3, 3);
   this.radius = random(minRadius, maxRadius);
   this.startRadius = this.radius;
-  const color =
-    colorSet[random(1, colorSet.length)] + getOpacity(this.radius, maxRadius);
-  this.color = color;
-
+  const color = colorSet[random(1, colorSet.length)];
+  this.color = color + getOpacity(this.radius, maxRadius);
+  this.startColor = this.color;
   this.draw = function () {
     context.beginPath();
     context.fillStyle = this.color;
@@ -65,13 +64,17 @@ function Bubble(minRadius, maxRadius) {
       this.y > mouseY - rad &&
       this.y < mouseY + rad
     ) {
+      this.color = color;
       if (this.radius < 50) {
-        this.radius += 1;
+        this.radius += 3;
       }
     } else {
-      this.radius > this.startRadius
-        ? (this.radius -= 1)
-        : (this.radius = this.startRadius);
+      if (this.radius > this.startRadius) {
+        this.radius -= 3;
+      } else {
+        this.radius = this.startRadius;
+        this.color = this.startColor;
+      }
     }
   };
 
