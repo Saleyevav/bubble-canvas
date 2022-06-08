@@ -10,12 +10,14 @@ const canvasBubbles = (function () {
     let mouseY = undefined;
     const canvas = this.canvas;
     const context = this.context;
+
     this.canvas.onmousemove = (e) => {
       mouseX = e.offsetX;
       mouseY = e.offsetY;
     };
 
     window.onresize = (e) => {
+      console.log('resize: ' + this.canvas.id + '|' + this.canvas.width);
       this.canvas.height = canvas.clientHeight;
       this.canvas.width = canvas.clientWidth;
     };
@@ -39,12 +41,16 @@ const canvasBubbles = (function () {
       return arr;
     }
     this.start = () => {
-      this.bubbles = generateBubbles(500, 1, 10);
+      this.bubbles = generateBubbles(
+        options.coountBubbles,
+        options.minRadius,
+        options.maxRadius
+      );
       this.animate();
     };
     function Bubble(minRadius, maxRadius) {
       const colorSet = options.colorSet;
-      //   const colorSet = ['', '#222629', '#222629', '#222629'];
+      const mouseRadius = options.mouseRadius;
       this.x = random(maxRadius, canvas.width - maxRadius);
       this.y = random(maxRadius, canvas.height - maxRadius);
       this.dx = random(-3, 3);
@@ -69,27 +75,15 @@ const canvasBubbles = (function () {
         }
         this.x += this.dx;
         this.y += this.dy;
-        this.resize(100);
+        this.resize(mouseRadius);
         this.draw();
       };
-      this.changeColor = function (rad) {
+      this.resize = function (mouseRadius) {
         if (
-          this.x > mouseX - rad &&
-          this.x < mouseX + rad &&
-          this.y > mouseY - rad &&
-          this.y < mouseY + rad
-        ) {
-          this.color = 'red';
-        } else {
-          this.color = color;
-        }
-      };
-      this.resize = function (rad) {
-        if (
-          this.x > mouseX - rad &&
-          this.x < mouseX + rad &&
-          this.y > mouseY - rad &&
-          this.y < mouseY + rad
+          this.x > mouseX - mouseRadius &&
+          this.x < mouseX + mouseRadius &&
+          this.y > mouseY - mouseRadius &&
+          this.y < mouseY + mouseRadius
         ) {
           this.color = color;
           if (this.radius < 50) {
@@ -122,16 +116,27 @@ const canvasBubbles = (function () {
     }
   }
 
-  return function (canvasId, options = {}) {
+  return function (
+    canvasId,
+    options = {
+      colorSet: ['', '#251D3A', '#2A2550', '#B20600'],
+      mouseRadius: 100,
+      coountBubbles: 500,
+      minRadius: 1,
+      maxRadius: 10,
+    }
+  ) {
     return new Canvas(canvasId, options);
   };
 })();
 
 const instance = canvasBubbles('canvasBubbles', {
-  colorSet: ['', '#251D3A', '#2A2550', '#B20600'],
+  colorSet: ['', '#d32821', '#53a66f', '#5db5f8'],
+  mouseRadius: 100,
+  coountBubbles: 500,
+  minRadius: 7,
+  maxRadius: 20,
 });
 instance.start();
-const instance2 = canvasBubbles('canvasBubbles2', {
-  colorSet: ['', '#222629', '#222629', '#222629'],
-});
+const instance2 = canvasBubbles('canvasBubbles2');
 instance2.start();
