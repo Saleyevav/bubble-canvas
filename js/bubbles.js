@@ -42,7 +42,7 @@ const canvasBubbles = (function () {
     }
     this.start = () => {
       this.bubbles = generateBubbles(
-        options.coountBubbles,
+        options.countBubbles,
         options.minRadius,
         options.maxRadius
       );
@@ -121,7 +121,7 @@ const canvasBubbles = (function () {
     options = {
       colorSet: ['', '#251D3A', '#2A2550', '#B20600'],
       mouseRadius: 100,
-      coountBubbles: 500,
+      countBubbles: 500,
       minRadius: 1,
       maxRadius: 10,
     }
@@ -133,7 +133,7 @@ const canvasBubbles = (function () {
 const instance = canvasBubbles('canvasBubbles', {
   colorSet: ['', '#d32821', '#53a66f', '#5db5f8'],
   mouseRadius: 100,
-  coountBubbles: 500,
+  countBubbles: 500,
   minRadius: 7,
   maxRadius: 20,
 });
