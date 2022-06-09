@@ -38,8 +38,8 @@ const canvasBubbles = (function () {
     let radius = random(minRadius, maxRadius);
     const startRadius = radius;
 
-    let color =
-      colorSet[random(1, colorSet.length)] + getOpacity(radius, maxRadius);
+    const nativeColor = colorSet[random(1, colorSet.length)];
+    let color = nativeColor + getOpacity(radius, maxRadius);
     const startColor = color;
 
     function draw() {
@@ -56,7 +56,7 @@ const canvasBubbles = (function () {
         y > mouseY - mouseRadius &&
         y < mouseY + mouseRadius
       ) {
-        color = color;
+        color = nativeColor;
         if (radius < 50) {
           radius += 3;
         }
