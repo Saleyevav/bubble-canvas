@@ -4,7 +4,6 @@ const instance = canvasBubbles('canvasBubbles', {
   countBubbles: 100,
   minRadius: 7,
   maxRadius: 20,
-  count: 10,
 });
 
 const instance2 = canvasBubbles('canvasBubbles2', {
