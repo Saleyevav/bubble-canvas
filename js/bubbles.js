@@ -1,3 +1,9 @@
+/**CanvasBubble v1.0.0
+ *Developed by Alexandr Saleyev
+ *email: saleyevav@yandex.ru
+ *15.06.2022
+ */
+
 'use strict';
 const canvasBubbles = (function () {
   const defaultOptions = {
